@@ -1,44 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio | Moinuddin Saiyed</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #1f2937, #111827);
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+
+      -webkit-backdrop-filter: blur(15px);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Typing Cursor */
+    .typing::after {
+      content: "|";
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .noise-bg {
+      background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+      opacity: 0.04;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-black font-sans">
+
+<body class="text-white font-sans relative overflow-hidden">
+
+  <!-- Background Noise Layer -->
+  <div class="noise-bg"></div>
+
   <!-- Container -->
-  <div class="min-h-screen bg-gray-100 rounded-[20px] p-6 m-4 relative overflow-hidden">
-    
-    <!-- Top Navigation -->
-    <div class="flex justify-between items-center mb-12">
-      <div class="text-2xl font-bold">m.S</div>
-      <nav class="space-x-8 text-sm font-medium uppercase">
-        <a href="#work">Work</a>
-        <a href="#resume">Resume</a>
-        <a href="#about">About</a>
-        <a href="#contact" class="ml-6">Contact Me</a>
+  <div class="min-h-screen flex flex-col justify-center items-center px-6 relative z-10">
+
+    <!-- Navbar -->
+    <div class="w-full max-w-6xl flex justify-between items-center py-6 text-lg">
+      <div class="text-3xl font-bold text-cyan-400 tracking-wide">m.S</div>
+      <nav class="space-x-8 uppercase font-semibold tracking-widest">
+        <a href="#work" class="hover:text-cyan-400 transition-all">Work</a>
+        <a href="#resume" class="hover:text-cyan-400 transition-all">Resume</a>
+        <a href="#about" class="hover:text-cyan-400 transition-all">About</a>
+        <a href="#contact" class="hover:text-cyan-400 transition-all">Contact</a>
       </nav>
     </div>
 
-    <!-- Hero Text -->
-    <div class="text-center space-y-4">
-      <h1 class="text-5xl font-extrabold leading-tight"><br>JUNIOR WEB DEVELOPER<br>HTML, CSS, JAVASCRIPT.</h1>
-      <div class="text-sm text-gray-700 mt-4">
-        <p>Currently looking for part time tech roles</p>
-        <p class="text-gray-600">(2025 - Present)</p>
-      </div>
+    <!-- Hero Section -->
+    <div class="glass rounded-3xl shadow-2xl p-12 text-center max-w-4xl w-full mt-12 animate-fadeInUp">
+      <h1 class="text-5xl font-extrabold leading-tight mb-6 text-white">
+        <span id="typewriter" class="typing"></span>
+      </h1>
+      <p class="text-gray-300 text-lg">Currently looking for part-time tech roles</p>
     </div>
 
-    <!-- Name and Photos -->
-    <div class="flex justify-center items-center mt-12 relative">
-      <div class="absolute left-8 text-xl font-medium">MOINUDDIN</div>
-      <div class="absolute right-8 text-xl font-medium">SAIYED</div>
-      <div class="flex gap-4">
-        <img src="img1.jpg" alt="Photo 1" class="w-48 h-64 object-cover grayscale rotate-[-10deg] rounded shadow-lg" />
-        <img src="img2.jpg" alt="Photo 2" class="w-48 h-64 object-cover grayscale rotate-[10deg] rounded shadow-lg" />
-      </div>
+    <!-- Images -->
+    <div class="flex justify-center gap-8 mt-16 relative z-10">
+      <img src="img1.jpg" alt="Photo 1"
+        class="w-48 h-64 object-cover grayscale rounded-2xl shadow-xl transform transition-transform duration-500 hover:scale-105 hover:rotate-1 img-float" />
+      <img src="img2.jpg" alt="Photo 2"
+        class="w-48 h-64 object-cover grayscale rounded-2xl shadow-xl transform transition-transform duration-500 hover:scale-105 hover:-rotate-1 img-float delay" />
     </div>
+
+    <!-- Scroll Down Indicator -->
+    <div class="absolute bottom-6 text-white text-2xl animate-bounce">⬇️</div>
   </div>
+
+  <script>
+    // Typing Animation
+    const text = "JUNIOR WEB DEVELOPER · HTML · CSS · JAVASCRIPT";
+    let i = 0;
+    function typeWriter() {
+      if (i <= text.length) {
+        document.getElementById("typewriter").innerText = text.slice(0, i);
+        i++;
+        setTimeout(typeWriter, 70);
+      }
+    }
+    window.onload = typeWriter;
+
+    // Entry animations
+    const floatImgs = document.querySelectorAll('.img-float');
+    floatImgs.forEach((img, idx) => {
+      img.style.opacity = 0;
+      img.style.transform = `translateY(60px) scale(0.9)`;
+      setTimeout(() => {
+        img.style.transition = 'all 1s ease';
+        img.style.opacity = 1;
+        img.style.transform = `translateY(0) scale(1)`;
+      }, 1000 + idx * 400);
+    });
+  </script>
 </body>
+
 </html>
